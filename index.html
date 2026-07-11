@@ -19,141 +19,62 @@
 
 <div class="card">
 
-<img src="bennys.png" class="logo">
+<img src="bennys.png" class="logo" alt="Logo Benny's">
 
 <h1>Calculadora Benny's</h1>
 
-<p>Monte seu orçamento de forma rápida.</p>
+<p>Monte seu orçamento rapidamente.</p>
 
-<!-- SERVIÇOS -->
+<h2>🔧 Serviços</h2>
 
-<div class="titulo">
+<div class="servicos">
 
-🔧 Serviços
-
+<div class="item">
+<label>🛞 Pneu</label>
+<input type="number" id="pneu" min="0" value="0">
 </div>
 
-<div class="servico">
-
-<span>🛞 Pneu</span>
-
-<div class="contador">
-
-<button class="menos" data-servico="pneu">−</button>
-
-<span id="qtd-pneu">0</span>
-
-<button class="mais" data-servico="pneu">+</button>
-
+<div class="item">
+<label>🔧 Chave Inglesa</label>
+<input type="number" id="chave" min="0" value="0">
 </div>
 
+<div class="item">
+<label>📦 Kit Básico</label>
+<input type="number" id="kitBasico" min="0" value="0">
 </div>
 
-<div class="servico">
-
-<span>🔧 Chave Inglesa</span>
-
-<div class="contador">
-
-<button class="menos" data-servico="chave">−</button>
-
-<span id="qtd-chave">0</span>
-
-<button class="mais" data-servico="chave">+</button>
-
+<div class="item">
+<label>🚗 Kit Avançado</label>
+<input type="number" id="kitAvancado" min="0" value="0">
 </div>
 
-</div>
-
-<div class="servico">
-
-<span>📦 Kit Básico</span>
-
-<div class="contador">
-
-<button class="menos" data-servico="kitBasico">−</button>
-
-<span id="qtd-kitBasico">0</span>
-
-<button class="mais" data-servico="kitBasico">+</button>
-
-</div>
-
-</div>
-
-<div class="servico">
-
-<span>🚗 Kit Avançado</span>
-
-<div class="contador">
-
-<button class="menos" data-servico="kitAvancado">−</button>
-
-<span id="qtd-kitAvancado">0</span>
-
-<button class="mais" data-servico="kitAvancado">+</button>
-
-</div>
-
-</div>
-
-<div class="servico">
-
-<span>🩹 Reparinho</span>
-
-<div class="contador">
-
-<button class="menos" data-servico="reparinho">−</button>
-
-<span id="qtd-reparinho">0</span>
-
-<button class="mais" data-servico="reparinho">+</button>
-
+<div class="item">
+<label>🩹 Reparinho</label>
+<input type="number" id="reparinho" min="0" value="0">
 </div>
 
 </div>
 
 <hr>
 
-<!-- PARCERIA -->
-
-<label>
-
-🤝 Parceria
-
-</label>
+<h2>🤝 Parceria</h2>
 
 <select id="parceria">
 
-<option value="0">
+<option value="0">Sem parceria</option>
 
-Sem parceria
+<option value="10">Parceria 1 (-10%)</option>
 
-</option>
+<option value="20">Parceria 2 (-20%)</option>
 
-<option value="10">
-
-Parceria 1 (-10%)
-
-</option>
-
-<option value="20">
-
-Parceria 2 (-20%)
-
-</option>
-
-<option value="15">
-
-Parceria 3 (-15%)
-
-</option>
+<option value="15">Parceria 3 (-15%)</option>
 
 </select>
 
-<br><br>
+<div class="externo">
 
-<label class="check">
+<label>
 
 <input type="checkbox" id="externo">
 
@@ -161,33 +82,19 @@ Parceria 3 (-15%)
 
 </label>
 
+</div>
+
 <div id="campoLocal">
 
-<label>
-
-📍 Local
-
-</label>
+<h2>📍 Deslocamento</h2>
 
 <select id="local">
 
-<option value="500">
+<option value="500">Sul (+R$500)</option>
 
-Sul (+500)
+<option value="1000">Sand (+R$1000)</option>
 
-</option>
-
-<option value="1000">
-
-Sand (+1000)
-
-</option>
-
-<option value="1500">
-
-Paleto Bay (+1500)
-
-</option>
+<option value="1500">Paleto Bay (+R$1500)</option>
 
 </select>
 
@@ -199,17 +106,65 @@ GERAR ORÇAMENTO
 
 </button>
 
-<div class="resultado">
+<div class="orcamento">
 
-<h2>Total</h2>
-
-<h3 id="total">
-
-R$ 0,00
-
-</h3>
+<h2>📋 Orçamento</h2>
 
 <div id="resumo">
+
+Nenhum serviço selecionado.
+
+</div>
+
+<hr>
+
+<div class="linha">
+
+<span>Subtotal</span>
+
+<strong id="subtotal">
+
+R$0,00
+
+</strong>
+
+</div>
+
+<div class="linha">
+
+<span>Desconto</span>
+
+<strong id="desconto">
+
+R$0,00
+
+</strong>
+
+</div>
+
+<div class="linha">
+
+<span>Deslocamento</span>
+
+<strong id="valorLocal">
+
+R$0,00
+
+</strong>
+
+</div>
+
+<hr>
+
+<div class="linha total">
+
+<span>TOTAL</span>
+
+<strong id="total">
+
+R$0,00
+
+</strong>
 
 </div>
 
