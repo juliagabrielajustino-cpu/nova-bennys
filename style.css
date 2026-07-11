@@ -7,7 +7,7 @@
 
 body{
     background:#0d0d0d;
-    color:white;
+    color:#fff;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -22,50 +22,163 @@ body{
 }
 
 .card{
+
     width:100%;
-    max-width:450px;
-    background:#181818;
+    max-width:470px;
+
+    background:#171717;
+
+    border:2px solid #c30000;
+
     border-radius:18px;
+
     padding:30px;
-    border:2px solid #c40000;
-    box-shadow:0 0 30px rgba(255,0,0,.25);
+
+    box-shadow:0 0 30px rgba(255,0,0,.20);
+
 }
 
 .logo{
-    width:180px;
+
+    width:170px;
+
     display:block;
-    margin:0 auto 15px;
+
+    margin:auto;
+
+    margin-bottom:20px;
+
 }
 
 h1{
+
     text-align:center;
-    color:#ff2b2b;
-    margin-bottom:8px;
+
+    color:#ff3333;
+
 }
 
 p{
+
     text-align:center;
-    color:#c9c9c9;
-    margin-bottom:25px;
-    font-size:15px;
+
+    color:#bbb;
+
+    margin:10px 0 25px;
+
 }
 
-.campo{
-    margin-bottom:18px;
+.titulo{
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    margin-bottom:15px;
+
+    color:#ff4b4b;
+
+}
+
+.servico{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:12px;
+
+    background:#222;
+
+    border-radius:10px;
+
+    margin-bottom:12px;
+
+}
+
+.servico span{
+
+    font-size:16px;
+
+}
+
+.contador{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+.contador button{
+
+    width:35px;
+
+    height:35px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#c30000;
+
+    color:white;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.contador button:hover{
+
+    background:#ff2d2d;
+
+}
+
+.contador span{
+
+    width:25px;
+
+    text-align:center;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+hr{
+
+    margin:20px 0;
+
+    border:1px solid #333;
+
 }
 
 label{
+
     display:block;
+
     margin-bottom:8px;
+
     font-weight:bold;
+
 }
 
 select{
 
     width:100%;
-    padding:14px;
 
-    background:#242424;
+    padding:12px;
+
+    background:#222;
 
     color:white;
 
@@ -73,134 +186,48 @@ select{
 
     border-radius:10px;
 
-    font-size:15px;
+    margin-bottom:18px;
 
-    cursor:pointer;
+    font-size:15px;
 
 }
 
 select:focus{
 
-    border-color:#ff2b2b;
+    border-color:#ff3333;
 
     outline:none;
 
 }
 
-button{
-
-    width:100%;
-
-    padding:15px;
-
-    margin-top:10px;
-
-    background:#d50000;
-
-    color:white;
-
-    border:none;
-
-    border-radius:10px;
-
-    font-size:16px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-button:hover{
-
-    background:#ff1e1e;
-
-}
-
-.resultado{
-
-    margin-top:25px;
-
-    background:#111;
-
-    border-radius:12px;
-
-    padding:20px;
-
-    border:1px solid #333;
-
-}
-
-.linha{
+.check{
 
     display:flex;
 
-    justify-content:space-between;
+    align-items:center;
 
-    margin:10px 0;
+    gap:10px;
 
-}
+    cursor:pointer;
 
-.linha span{
-
-    color:#bdbdbd;
+    margin-bottom:15px;
 
 }
 
-.linha strong{
+.check input{
 
-    color:white;
+    width:18px;
 
-}
-
-.total{
-
-    margin-top:15px;
-
-    font-size:22px;
-
-    font-weight:bold;
+    height:18px;
 
 }
 
-#resultado{
+#campoLocal{
 
-    color:#2cff88;
-
-    text-shadow:0 0 10px #2cff88;
+    display:none;
 
 }
 
-hr{
+#calcular{
 
-    border:none;
-
-    border-top:1px solid #333;
-
-    margin:15px 0;
-
-}
-
-@media(max-width:500px){
-
-.card{
-
-padding:20px;
-
-}
-
-.logo{
-
-width:140px;
-
-}
-
-h1{
-
-font-size:28px;
-
-}
-
-}
+   
