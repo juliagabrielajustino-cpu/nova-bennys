@@ -1,0 +1,126 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#0b0b0b;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:auto;
+}
+
+.background{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(rgba(0,0,0,.85),rgba(0,0,0,.85)),
+    url("logo.png") center center no-repeat;
+    background-size:45%;
+    opacity:.18;
+    z-index:-1;
+}
+
+.container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    padding:20px;
+}
+
+.card{
+    width:420px;
+    background:#141414;
+    border:2px solid #b30000;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 0 25px rgba(255,0,0,.35);
+}
+
+.logo{
+    display:block;
+    width:240px;
+    margin:0 auto 20px;
+}
+
+h2{
+    text-align:center;
+    color:#fff;
+    margin-bottom:20px;
+}
+
+h3{
+    color:#ff4040;
+    margin:15px 0 10px;
+}
+
+.item{
+    margin-bottom:15px;
+}
+
+label{
+    display:block;
+    color:white;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+input[type="number"]{
+    width:100%;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #444;
+    background:#222;
+    color:white;
+    font-size:16px;
+}
+
+input[type="number"]:focus{
+    outline:none;
+    border-color:red;
+}
+
+.radio label{
+    display:block;
+    margin:8px 0;
+    color:#ddd;
+    font-weight:normal;
+}
+
+.radio input{
+    margin-right:8px;
+}
+
+button{
+    width:100%;
+    margin-top:15px;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#c00000;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.25s;
+}
+
+button:hover{
+    background:#ff0000;
+}
+
+.limpar{
+    background:#444;
+}
+
+.limpar:hover{
+    background:#666;
+}
+
+#resultado{
+    margin-top:25px;
+    text-align:center;
+    font-size:24px
