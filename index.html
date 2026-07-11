@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BENNY'S MOTOR WORKS</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<div class="container">
+
+    <img src="logo.png" class="logo" alt="Benny's">
+
+    <div class="card">
+
+        <h2>Calculadora Benny's</h2>
+
+        <div class="item">
+            <label>🔧 Conserto (R$ 1.500)</label>
+            <input type="number" id="conserto" value="0" min="0">
+        </div>
+
+        <div class="item">
+            <label>🛞 Pneu (R$ 1.200)</label>
+            <input type="number" id="pneu" value="0" min="0">
+        </div>
+
+        <div class="item">
+            <label>🔑 Chave (R$ 1.500)</label>
+            <input type="number" id="chave" value="0" min="0">
+        </div>
+
+        <div class="item">
+            <label>📦 Kit Básico (R$ 1.500)</label>
+            <input type="number" id="kitBasico" value="0" min="0">
+        </div>
+
+        <div class="item">
+            <label>🚘 Kit Avançado (R$ 3.500)</label>
+            <input type="number" id="kitAvancado" value="0" min="0">
+        </div>
+
+        <div class="item">
+            <label>⚙️ Valor do Tuning</label>
+            <input type="number" id="tuning" value="0" min="0">
+        </div>
+
+        <hr>
+
+        <h3>Parceria</h3>
+
+        <div class="radio">
+            <label>
+                <input type="radio" name="parceria" value="0" checked>
+                Sem parceria
+            </label>
+
+            <label>
+                <input type="radio" name="parceria" value="1">
+                Parceria 1 (-10%)
+            </label>
+
+            <label>
+                <input type="radio" name="parceria" value="2">
+                Parceria 2 (-20%)
+            </label>
+        </div>
+
+        <button onclick="calcular()">
+            CALCULAR
+        </button>
+
+        <button class="limpar" onclick="limparCampos()">
+            LIMPAR
+        </button>
+
+        <div id="resultado">
+            Total: R$ 0,00
+        </div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
