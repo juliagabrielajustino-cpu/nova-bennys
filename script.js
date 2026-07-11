@@ -1,5 +1,3 @@
-// ===== PREÇOS =====
-
 const precos = {
     pneu: 1200,
     chave: 1500,
@@ -8,203 +6,171 @@ const precos = {
     reparinho: 1500
 };
 
-// Quantidade de cada serviço
-const quantidade = {
-    pneu: 0,
-    chave: 0,
-    kitBasico: 0,
-    kitAvancado: 0,
-    reparinho: 0
+const nomes = {
+    pneu: "Pneu",
+    chave: "Chave Inglesa",
+    kitBasico: "Kit Básico",
+    kitAvancado: "Kit Avançado",
+    reparinho: "Reparinho"
 };
 
-// Atualiza os números na tela
-function atualizarTela(){
+const campos = {
+    pneu: document.getElementById("pneu"),
+    chave: document.getElementById("chave"),
+    kitBasico: document.getElementById("kitBasico"),
+    kitAvancado: document.getElementById("kitAvancado"),
+    reparinho: document.getElementById("reparinho")
+};
 
-    document.getElementById("qtd-pneu").textContent = quantidade.pneu;
-    document.getElementById("qtd-chave").textContent = quantidade.chave;
-    document.getElementById("qtd-kitBasico").textContent = quantidade.kitBasico;
-    document.getElementById("qtd-kitAvancado").textContent = quantidade.kitAvancado;
-    document.getElementById("qtd-reparinho").textContent = quantidade.reparinho;
-
-}
-
-// Botões +
-document.querySelectorAll(".mais").forEach(botao=>{
-
-    botao.addEventListener("click",()=>{
-
-        quantidade[botao.dataset.servico]++;
-
-        atualizarTela();
-
-    });
-
-});
-
-// Botões -
-document.querySelectorAll(".menos").forEach(botao=>{
-
-    botao.addEventListener("click",()=>{
-
-        if(quantidade[botao.dataset.servico] > 0){
-
-            quantidade[botao.dataset.servico]--;
-
-            atualizarTela();
-
-        }
-
-    });
-
-});
-
-// Atendimento externo
-
+const parceria = document.getElementById("parceria");
 const externo = document.getElementById("externo");
 const campoLocal = document.getElementById("campoLocal");
+const local = document.getElementById("local");
 
-externo.addEventListener("change",()=>{
+const botaoCalcular = document.getElementById("calcular");
+const botaoCopiar = document.getElementById("copiar");
 
-    if(externo.checked){
+const resumo = document.getElementById("resumo");
+const subtotalElemento = document.getElementById("subtotal");
+const descontoElemento = document.getElementById("desconto");
+const valorLocalElemento = document.getElementById("valorLocal");
+const totalElemento = document.getElementById("total");
 
-        campoLocal.style.display="block";
+let ultimoOrcamento = "";
 
-    }else{
+function formatarDinheiro(valor) {
+    return valor.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    });
+}
 
-        campoLocal.style.display="none";
+function obterQuantidade(campo) {
+    const valor = Number(campo.value);
 
+    if (!Number.isFinite(valor) || valor < 0) {
+        return 0;
     }
 
-});
+    return Math.floor(valor);
+}
 
-// Calcular orçamento
+function atualizarCampoLocal() {
+    if (externo.checked) {
+        campoLocal.style.display = "block";
+    } else {
+        campoLocal.style.display = "none";
+    }
+}
 
-document.getElementById("calcular").addEventListener("click",calcular);
-
-function calcular(){
-
+function calcular() {
     let subtotal = 0;
-    let resumo = "";
+    let linhasResumo = "";
+    let linhasCopiar = "";
+    let possuiServico = false;
 
-    // Serviços
+    for (const servico in campos) {
+        const quantidade = obterQuantidade(campos[servico]);
 
-    for(const servico in quantidade){
+        if (quantidade > 0) {
+            possuiServico = true;
 
-        if(quantidade[servico] > 0){
+            const valorItem = quantidade * precos[servico];
 
-            const valor = quantidade[servico] * precos[servico];
+            subtotal += valorItem;
 
-            subtotal += valor;
+            linhasResumo += `
+                <div class="linha">
+                    <span>${nomes[servico]} (${quantidade}x)</span>
+                    <strong>${formatarDinheiro(valorItem)}</strong>
+                </div>
+            `;
 
-            resumo +=
-            `${nomeBonito(servico)} (${quantidade[servico]}x) - ${formatar(valor)}<br>`;
-
+            linhasCopiar +=
+                `${nomes[servico]} (${quantidade}x): ${formatarDinheiro(valorItem)}\n`;
         }
-
     }
 
-    // Desconto
-
-    const descontoPorcentagem =
-    Number(document.getElementById("parceria").value);
-
-    const desconto =
-    subtotal * (descontoPorcentagem/100);
-
-    // Deslocamento
+    const percentualDesconto = Number(parceria.value);
+    const valorDesconto = subtotal * (percentualDesconto / 100);
 
     let deslocamento = 0;
+    let nomeLocal = "Sem deslocamento";
 
-    if(externo.checked){
-
-        deslocamento =
-        Number(document.getElementById("local").value);
-
+    if (externo.checked) {
+        deslocamento = Number(local.value);
+        nomeLocal = local.options[local.selectedIndex].text;
     }
 
-    const total =
-    subtotal - desconto + deslocamento;
+    const total = subtotal - valorDesconto + deslocamento;
 
-    document.getElementById("total").textContent =
-    formatar(total);
-
-    document.getElementById("resumo").innerHTML =
-
-    resumo +
-
-    `<hr>
-
-    Subtotal: ${formatar(subtotal)}<br>
-
-    Desconto: -${formatar(desconto)}<br>
-
-    Deslocamento: ${formatar(deslocamento)}
-
-    `;
-
-}
-
-// Nome bonito
-
-function nomeBonito(nome){
-
-    switch(nome){
-
-        case "pneu":
-            return "🛞 Pneu";
-
-        case "chave":
-            return "🔧 Chave Inglesa";
-
-        case "kitBasico":
-            return "📦 Kit Básico";
-
-        case "kitAvancado":
-            return "🚗 Kit Avançado";
-
-        case "reparinho":
-            return "🩹 Reparinho";
-
+    if (possuiServico) {
+        resumo.innerHTML = linhasResumo;
+    } else {
+        resumo.textContent = "Nenhum serviço selecionado.";
     }
 
+    subtotalElemento.textContent = formatarDinheiro(subtotal);
+
+    descontoElemento.textContent =
+        percentualDesconto > 0
+            ? "- " + formatarDinheiro(valorDesconto)
+            : formatarDinheiro(0);
+
+    valorLocalElemento.textContent =
+        deslocamento > 0
+            ? "+ " + formatarDinheiro(deslocamento)
+            : formatarDinheiro(0);
+
+    totalElemento.textContent = formatarDinheiro(total);
+
+    const nomeParceria =
+        parceria.options[parceria.selectedIndex].text;
+
+    ultimoOrcamento =
+`ORÇAMENTO BENNY'S
+
+${linhasCopiar || "Nenhum serviço selecionado.\n"}
+Parceria: ${nomeParceria}
+Atendimento externo: ${externo.checked ? "Sim" : "Não"}
+Local: ${nomeLocal}
+
+Subtotal: ${formatarDinheiro(subtotal)}
+Desconto: ${formatarDinheiro(valorDesconto)}
+Deslocamento: ${formatarDinheiro(deslocamento)}
+
+TOTAL: ${formatarDinheiro(total)}`;
 }
 
-// Formatar dinheiro
+async function copiarOrcamento() {
+    calcular();
 
-function formatar(valor){
+    try {
+        await navigator.clipboard.writeText(ultimoOrcamento);
+        botaoCopiar.textContent = "ORÇAMENTO COPIADO";
 
-    return valor.toLocaleString("pt-BR",{
-
-        style:"currency",
-
-        currency:"BRL"
-
-    });
-
-}
-
-// Copiar orçamento
-
-document.getElementById("copiar").addEventListener("click",()=>{
-
-    let texto = "📋 ORÇAMENTO BENNY'S\n\n";
-
-    for(const servico in quantidade){
-
-        if(quantidade[servico] > 0){
-
-            texto += `${nomeBonito(servico)} (${quantidade[servico]}x)\n`;
-
-        }
-
+        setTimeout(() => {
+            botaoCopiar.textContent = "📋 Copiar orçamento";
+        }, 1800);
+    } catch (erro) {
+        alert("Não foi possível copiar o orçamento.");
     }
+}
 
-    texto += `\n💰 Total: ${document.getElementById("total").textContent}`;
-
-    navigator.clipboard.writeText(texto);
-
-    alert("Orçamento copiado!");
-
+externo.addEventListener("change", () => {
+    atualizarCampoLocal();
+    calcular();
 });
 
-atualizarTela();
+parceria.addEventListener("change", calcular);
+local.addEventListener("change", calcular);
+
+Object.values(campos).forEach((campo) => {
+    campo.addEventListener("input", calcular);
+});
+
+botaoCalcular.addEventListener("click", calcular);
+botaoCopiar.addEventListener("click", copiarOrcamento);
+
+atualizarCampoLocal();
+calcular();
