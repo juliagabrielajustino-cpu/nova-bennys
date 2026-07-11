@@ -1,95 +1,205 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BENNY'S MOTOR WORKS</title>
+
+    <title>Calculadora Benny's</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="background"></div>
+    <canvas id="canvas"></canvas>
 
-<div class="container">
+    <main class="calculadora">
 
-    <img src="logo.png" class="logo" alt="Benny's">
+        <header class="cabecalho">
+            <img src="logo.png" alt="Logo Benny's" class="logo">
 
-    <div class="card">
+            <div>
+                <h1>BENNY'S</h1>
+                <p>Calculadora de Serviços</p>
+            </div>
+        </header>
 
-        <h2>Calculadora Benny's</h2>
+        <section class="servicos">
 
-        <div class="item">
-            <label>🔧 Conserto (R$ 1.500)</label>
-            <input type="number" id="conserto" value="0" min="0">
-        </div>
+            <div class="servico">
+                <div>
+                    <strong>Conserto</strong>
+                    <span>R$ 1.500</span>
+                </div>
 
-        <div class="item">
-            <label>🛞 Pneu (R$ 1.200)</label>
-            <input type="number" id="pneu" value="0" min="0">
-        </div>
+                <input
+                    type="number"
+                    id="conserto"
+                    min="0"
+                    value="0"
+                    inputmode="numeric"
+                >
+            </div>
 
-        <div class="item">
-            <label>🔑 Chave (R$ 1.500)</label>
-            <input type="number" id="chave" value="0" min="0">
-        </div>
+            <div class="servico">
+                <div>
+                    <strong>Pneu</strong>
+                    <span>R$ 1.200</span>
+                </div>
 
-        <div class="item">
-            <label>📦 Kit Básico (R$ 1.500)</label>
-            <input type="number" id="kitBasico" value="0" min="0">
-        </div>
+                <input
+                    type="number"
+                    id="pneu"
+                    min="0"
+                    value="0"
+                    inputmode="numeric"
+                >
+            </div>
 
-        <div class="item">
-            <label>🚘 Kit Avançado (R$ 3.500)</label>
-            <input type="number" id="kitAvancado" value="0" min="0">
-        </div>
+            <div class="servico">
+                <div>
+                    <strong>Chave</strong>
+                    <span>R$ 1.500</span>
+                </div>
 
-        <div class="item">
-            <label>⚙️ Valor do Tuning</label>
-            <input type="number" id="tuning" value="0" min="0">
-        </div>
+                <input
+                    type="number"
+                    id="chave"
+                    min="0"
+                    value="0"
+                    inputmode="numeric"
+                >
+            </div>
 
-        <hr>
+            <div class="servico">
+                <div>
+                    <strong>Kit Básico</strong>
+                    <span>R$ 1.500</span>
+                </div>
 
-        <h3>Parceria</h3>
+                <input
+                    type="number"
+                    id="kitBasico"
+                    min="0"
+                    value="0"
+                    inputmode="numeric"
+                >
+            </div>
 
-        <div class="radio">
-            <label>
-                <input type="radio" name="parceria" value="0" checked>
-                Sem parceria
+            <div class="servico">
+                <div>
+                    <strong>Kit Avançado</strong>
+                    <span>R$ 3.500</span>
+                </div>
+
+                <input
+                    type="number"
+                    id="kitAvancado"
+                    min="0"
+                    value="0"
+                    inputmode="numeric"
+                >
+            </div>
+
+            <div class="servico tuning">
+                <div>
+                    <strong>Valor do Tuning</strong>
+                    <span>Digite o valor original</span>
+                </div>
+
+                <input
+                    type="number"
+                    id="tuning"
+                    min="0"
+                    value="0"
+                    inputmode="decimal"
+                >
+            </div>
+
+        </section>
+
+        <section class="parcerias">
+
+            <h2>Tipo de parceria</h2>
+
+            <label class="opcao">
+                <input
+                    type="radio"
+                    name="parceria"
+                    value="0"
+                    checked
+                >
+
+                <span>
+                    <strong>Sem parceria</strong>
+                    <small>Serviços normais • Tuning +30%</small>
+                </span>
             </label>
 
-            <label>
-                <input type="radio" name="parceria" value="1">
-                Parceria 1 (-10%)
+            <label class="opcao">
+                <input
+                    type="radio"
+                    name="parceria"
+                    value="1"
+                >
+
+                <span>
+                    <strong>Parceria 1</strong>
+                    <small>10% de desconto geral</small>
+                </span>
             </label>
 
-            <label>
-                <input type="radio" name="parceria" value="2">
-                Parceria 2 (-20%)
+            <label class="opcao">
+                <input
+                    type="radio"
+                    name="parceria"
+                    value="2"
+                >
+
+                <span>
+                    <strong>Parceria 2</strong>
+                    <small>20% de desconto geral</small>
+                </span>
             </label>
+
+        </section>
+
+        <section class="resumo">
+
+            <div class="linha-resumo">
+                <span>Subtotal</span>
+                <strong id="subtotal">R$ 0,00</strong>
+            </div>
+
+            <div class="linha-resumo">
+                <span>Desconto</span>
+                <strong id="desconto">R$ 0,00</strong>
+            </div>
+
+            <div class="linha-resumo total">
+                <span>Total</span>
+                <strong id="resultado">R$ 0,00</strong>
+            </div>
+
+        </section>
+
+        <div class="botoes">
+
+            <button id="calcular" type="button">
+                CALCULAR
+            </button>
+
+            <button id="limpar" type="button">
+                LIMPAR
+            </button>
+
         </div>
 
-        <button onclick="calcular()">
-            CALCULAR
-        </button>
+        <p id="mensagem"></p>
 
-        <button class="limpar" onclick="limparCampos()">
-            LIMPAR
-        </button>
+    </main>
 
-        <div id="resultado">
-            Total: R$ 0,00
-        </div>
-
-    </div>
-
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
-
 </html>
