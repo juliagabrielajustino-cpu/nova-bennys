@@ -1,189 +1,424 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
+    <meta charset="UTF-8">
 
-<meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Benny's</title>
 
-<title>Calculadora Benny's</title>
-
-<link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="container">
+    <main class="container">
 
-<div class="card">
+        <section class="card">
 
-<img src="bennys.png" class="logo" alt="Logo Benny's">
+            <header class="cabecalho">
 
-<h1>Calculadora Benny's</h1>
+                <img
+                    src="bennys.png"
+                    alt="Logo Benny's"
+                    class="logo"
+                >
 
-<p>Monte seu orçamento rapidamente.</p>
+                <h1>Calculadora Benny's</h1>
 
-<h2>🔧 Serviços</h2>
+                <p>
+                    Sistema de orçamentos
+                </p>
 
-<div class="servicos">
+            </header>
 
-<div class="item">
-<label>🛞 Pneu</label>
-<input type="number" id="pneu" min="0" value="0">
-</div>
+            <section class="secao">
 
-<div class="item">
-<label>🔧 Chave Inglesa</label>
-<input type="number" id="chave" min="0" value="0">
-</div>
+                <h2>Serviços</h2>
 
-<div class="item">
-<label>📦 Kit Básico</label>
-<input type="number" id="kitBasico" min="0" value="0">
-</div>
+                <div class="lista-servicos">
 
-<div class="item">
-<label>🚗 Kit Avançado</label>
-<input type="number" id="kitAvancado" min="0" value="0">
-</div>
+                    <div class="servico">
 
-<div class="item">
-<label>🩹 Reparinho</label>
-<input type="number" id="reparinho" min="0" value="0">
-</div>
+                        <div>
+                            <strong>Pneu</strong>
+                            <span>R$ 1.200</span>
+                        </div>
 
-</div>
+                        <input
+                            type="number"
+                            id="pneu"
+                            min="0"
+                            value="0"
+                            inputmode="numeric"
+                        >
 
-<hr>
+                    </div>
 
-<h2>🤝 Parceria</h2>
+                    <div class="servico">
 
-<select id="parceria">
+                        <div>
+                            <strong>Chave Inglesa</strong>
+                            <span>R$ 1.500</span>
+                        </div>
 
-<option value="0">Sem parceria</option>
+                        <input
+                            type="number"
+                            id="chave"
+                            min="0"
+                            value="0"
+                            inputmode="numeric"
+                        >
 
-<option value="10">Parceria 1 (-10%)</option>
+                    </div>
 
-<option value="20">Restaurantes (-20%)</option>
+                    <div class="servico">
 
-<option value="15">Polícia (-15%)</option>
-        
- <option value="15">HP (-15%)</option>
-        
-</select>
+                        <div>
+                            <strong>Kit Básico</strong>
+                            <span>R$ 1.500</span>
+                        </div>
 
-<div class="externo">
+                        <input
+                            type="number"
+                            id="kitBasico"
+                            min="0"
+                            value="0"
+                            inputmode="numeric"
+                        >
 
-<label>
+                    </div>
 
-<input type="checkbox" id="externo">
+                    <div class="servico">
 
-🚗 Atendimento externo
+                        <div>
+                            <strong>Kit Avançado</strong>
+                            <span>R$ 3.500</span>
+                        </div>
 
-</label>
+                        <input
+                            type="number"
+                            id="kitAvancado"
+                            min="0"
+                            value="0"
+                            inputmode="numeric"
+                        >
 
-</div>
+                    </div>
 
-<div id="campoLocal">
+                    <div class="servico">
 
-<h2>📍 Deslocamento</h2>
+                        <div>
+                            <strong>Reparinho</strong>
+                            <span>R$ 1.500</span>
+                        </div>
 
-<select id="local">
+                        <input
+                            type="number"
+                            id="reparinho"
+                            min="0"
+                            value="0"
+                            inputmode="numeric"
+                        >
 
-<option value="500">Sul (+R$500)</option>
+                    </div>
 
-<option value="1000">Sand (+R$1000)</option>
+                </div>
 
-<option value="1500">Paleto Bay (+R$1500)</option>
+            </section>
 
-</select>
+            <section class="secao">
 
-</div>
+                <label class="opcao-checkbox">
 
-<button id="calcular">
+                    <input
+                        type="checkbox"
+                        id="usarTuning"
+                    >
 
-GERAR ORÇAMENTO
+                    <span>Adicionar tuning</span>
 
-</button>
+                </label>
 
-<div class="orcamento">
+                <div
+                    id="campoTuning"
+                    class="campo-escondido"
+                >
 
-<h2>📋 Orçamento</h2>
+                    <label for="tuning">
+                        Valor original do tuning
+                    </label>
 
-<div id="resumo">
+                    <input
+                        type="number"
+                        id="tuning"
+                        min="0"
+                        value="0"
+                        inputmode="decimal"
+                    >
 
-Nenhum serviço selecionado.
+                    <div class="tuning-final">
 
-</div>
+                        <span>Valor final do tuning</span>
 
-<hr>
+                        <strong id="valorTuningFinal">
+                            R$ 0,00
+                        </strong>
 
-<div class="linha">
+                    </div>
 
-<span>Subtotal</span>
+                </div>
 
-<strong id="subtotal">
+            </section>
 
-R$0,00
+            <section class="secao">
 
-</strong>
+                <h2>Parceria</h2>
 
-</div>
+                <div class="parcerias">
 
-<div class="linha">
+                    <label class="opcao-parceria">
 
-<span>Desconto</span>
+                        <input
+                            type="radio"
+                            name="parceria"
+                            value="0"
+                            data-tuning="30"
+                            checked
+                        >
 
-<strong id="desconto">
+                        <span>
 
-R$0,00
+                            <strong>Sem parceria</strong>
 
-</strong>
+                            <small>
+                                Serviços normais · Tuning +30%
+                            </small>
 
-</div>
+                        </span>
 
-<div class="linha">
+                    </label>
 
-<span>Deslocamento</span>
+                    <label class="opcao-parceria">
 
-<strong id="valorLocal">
+                        <input
+                            type="radio"
+                            name="parceria"
+                            value="10"
+                            data-tuning="20"
+                        >
 
-R$0,00
+                        <span>
 
-</strong>
+                            <strong>Parceria 1</strong>
 
-</div>
+                            <small>
+                                Serviços -10% · Tuning +20%
+                            </small>
 
-<hr>
+                        </span>
 
-<div class="linha total">
+                    </label>
 
-<span>TOTAL</span>
+                    <label class="opcao-parceria">
 
-<strong id="total">
+                        <input
+                            type="radio"
+                            name="parceria"
+                            value="20"
+                            data-tuning="10"
+                        >
 
-R$0,00
+                        <span>
 
-</strong>
+                            <strong>Parceria 2</strong>
 
-</div>
+                            <small>
+                                Serviços -20% · Tuning +10%
+                            </small>
 
-</div>
+                        </span>
 
-<button id="copiar">
+                    </label>
 
-📋 Copiar orçamento
+                    <label class="opcao-parceria">
 
-</button>
+                        <input
+                            type="radio"
+                            name="parceria"
+                            value="15"
+                            data-tuning="15"
+                        >
 
-</div>
+                        <span>
 
-</div>
+                            <strong>Polícia</strong>
 
-<script src="script.js"></script>
+                            <small>
+                                Serviços -15% · Tuning +15%
+                            </small>
+
+                        </span>
+
+                    </label>
+
+                    <label class="opcao-parceria">
+
+                        <input
+                            type="radio"
+                            name="parceria"
+                            value="15"
+                            data-tuning="15"
+                        >
+
+                        <span>
+
+                            <strong>HP</strong>
+
+                            <small>
+                                Serviços -15% · Tuning +15%
+                            </small>
+
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </section>
+
+            <section class="secao">
+
+                <label class="opcao-checkbox">
+
+                    <input
+                        type="checkbox"
+                        id="atendimentoExterno"
+                    >
+
+                    <span>Atendimento externo</span>
+
+                </label>
+
+                <div
+                    id="campoLocal"
+                    class="campo-escondido"
+                >
+
+                    <label for="local">
+                        Local do atendimento
+                    </label>
+
+                    <select id="local">
+
+                        <option value="500">
+                            Sul (+R$ 500)
+                        </option>
+
+                        <option value="1000">
+                            Sand (+R$ 1.000)
+                        </option>
+
+                        <option value="1500">
+                            Paleto Bay (+R$ 1.500)
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </section>
+
+            <div class="botoes">
+
+                <button
+                    type="button"
+                    id="calcular"
+                >
+                    Gerar orçamento
+                </button>
+
+                <button
+                    type="button"
+                    id="limpar"
+                >
+                    Limpar
+                </button>
+
+            </div>
+
+            <section class="orcamento">
+
+                <h2>Orçamento</h2>
+
+                <div id="resumoServicos">
+
+                    <p class="vazio">
+                        Nenhum serviço selecionado.
+                    </p>
+
+                </div>
+
+                <div class="linha-resumo">
+
+                    <span>Subtotal dos serviços</span>
+
+                    <strong id="subtotalServicos">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+                <div class="linha-resumo">
+
+                    <span>Desconto</span>
+
+                    <strong id="valorDesconto">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+                <div class="linha-resumo">
+
+                    <span>Tuning</span>
+
+                    <strong id="valorTuningResumo">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+                <div class="linha-resumo">
+
+                    <span>Deslocamento</span>
+
+                    <strong id="valorDeslocamento">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+                <div class="linha-resumo total">
+
+                    <span>Total</span>
+
+                    <strong id="resultado">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
 
 </body>
-
-        </html>
+</html>
