@@ -14,7 +14,7 @@ const nomes = {
     reparinho: "Reparinho"
 };
 
-const campos = {
+const camposServicos = {
     pneu: document.getElementById("pneu"),
     chave: document.getElementById("chave"),
     kitBasico: document.getElementById("kitBasico"),
@@ -22,21 +22,24 @@ const campos = {
     reparinho: document.getElementById("reparinho")
 };
 
-const parceria = document.getElementById("parceria");
-const externo = document.getElementById("externo");
+const usarTuning = document.getElementById("usarTuning");
+const campoTuning = document.getElementById("campoTuning");
+const tuning = document.getElementById("tuning");
+const valorTuningFinal = document.getElementById("valorTuningFinal");
+
+const atendimentoExterno = document.getElementById("atendimentoExterno");
 const campoLocal = document.getElementById("campoLocal");
 const local = document.getElementById("local");
 
 const botaoCalcular = document.getElementById("calcular");
-const botaoCopiar = document.getElementById("copiar");
+const botaoLimpar = document.getElementById("limpar");
 
-const resumo = document.getElementById("resumo");
-const subtotalElemento = document.getElementById("subtotal");
-const descontoElemento = document.getElementById("desconto");
-const valorLocalElemento = document.getElementById("valorLocal");
-const totalElemento = document.getElementById("total");
-
-let ultimoOrcamento = "";
+const resumoServicos = document.getElementById("resumoServicos");
+const subtotalServicosElemento = document.getElementById("subtotalServicos");
+const valorDescontoElemento = document.getElementById("valorDesconto");
+const valorTuningResumoElemento = document.getElementById("valorTuningResumo");
+const valorDeslocamentoElemento = document.getElementById("valorDeslocamento");
+const resultadoElemento = document.getElementById("resultado");
 
 function formatarDinheiro(valor) {
     return valor.toLocaleString("pt-BR", {
@@ -55,122 +58,171 @@ function obterQuantidade(campo) {
     return Math.floor(valor);
 }
 
-function atualizarCampoLocal() {
-    if (externo.checked) {
-        campoLocal.style.display = "block";
-    } else {
-        campoLocal.style.display = "none";
-    }
+function obterParceriaSelecionada() {
+    return document.querySelector(
+        'input[name="parceria"]:checked'
+    );
+}
+
+function atualizarCamposVisiveis() {
+    campoTuning.classList.toggle(
+        "ativo",
+        usarTuning.checked
+    );
+
+    campoLocal.classList.toggle(
+        "ativo",
+        atendimentoExterno.checked
+    );
 }
 
 function calcular() {
-    let subtotal = 0;
-    let linhasResumo = "";
-    let linhasCopiar = "";
-    let possuiServico = false;
+    let subtotalServicos = 0;
+    let itensResumo = "";
 
-    for (const servico in campos) {
-        const quantidade = obterQuantidade(campos[servico]);
+    for (const servico in camposServicos) {
+        const quantidade = obterQuantidade(
+            camposServicos[servico]
+        );
 
         if (quantidade > 0) {
-            possuiServico = true;
+            const valorItem =
+                quantidade * precos[servico];
 
-            const valorItem = quantidade * precos[servico];
+            subtotalServicos += valorItem;
 
-            subtotal += valorItem;
+            itensResumo += `
+                <div class="item-resumo">
+                    <span>
+                        ${nomes[servico]} (${quantidade}x)
+                    </span>
 
-            linhasResumo += `
-                <div class="linha">
-                    <span>${nomes[servico]} (${quantidade}x)</span>
-                    <strong>${formatarDinheiro(valorItem)}</strong>
+                    <strong>
+                        ${formatarDinheiro(valorItem)}
+                    </strong>
                 </div>
             `;
-
-            linhasCopiar +=
-                `${nomes[servico]} (${quantidade}x): ${formatarDinheiro(valorItem)}\n`;
         }
     }
 
-    const percentualDesconto = Number(parceria.value);
-    const valorDesconto = subtotal * (percentualDesconto / 100);
+    const parceriaSelecionada =
+        obterParceriaSelecionada();
+
+    const percentualDesconto = Number(
+        parceriaSelecionada.value
+    );
+
+    const percentualTuning = Number(
+        parceriaSelecionada.dataset.tuning
+    );
+
+    const valorDesconto =
+        subtotalServicos *
+        (percentualDesconto / 100);
+
+    let tuningFinal = 0;
+
+    if (usarTuning.checked) {
+        const valorOriginalTuning =
+            Number(tuning.value) || 0;
+
+        tuningFinal =
+            valorOriginalTuning *
+            (1 + percentualTuning / 100);
+    }
 
     let deslocamento = 0;
-    let nomeLocal = "Sem deslocamento";
 
-    if (externo.checked) {
-        deslocamento = Number(local.value);
-        nomeLocal = local.options[local.selectedIndex].text;
+    if (atendimentoExterno.checked) {
+        deslocamento =
+            Number(local.value) || 0;
     }
 
-    const total = subtotal - valorDesconto + deslocamento;
+    const total =
+        subtotalServicos -
+        valorDesconto +
+        tuningFinal +
+        deslocamento;
 
-    if (possuiServico) {
-        resumo.innerHTML = linhasResumo;
+    if (itensResumo) {
+        resumoServicos.innerHTML = itensResumo;
     } else {
-        resumo.textContent = "Nenhum serviço selecionado.";
+        resumoServicos.innerHTML = `
+            <p class="vazio">
+                Nenhum serviço selecionado.
+            </p>
+        `;
     }
 
-    subtotalElemento.textContent = formatarDinheiro(subtotal);
+    subtotalServicosElemento.textContent =
+        formatarDinheiro(subtotalServicos);
 
-    descontoElemento.textContent =
-        percentualDesconto > 0
+    valorDescontoElemento.textContent =
+        valorDesconto > 0
             ? "- " + formatarDinheiro(valorDesconto)
             : formatarDinheiro(0);
 
-    valorLocalElemento.textContent =
+    valorTuningFinal.textContent =
+        formatarDinheiro(tuningFinal);
+
+    valorTuningResumoElemento.textContent =
+        formatarDinheiro(tuningFinal);
+
+    valorDeslocamentoElemento.textContent =
         deslocamento > 0
             ? "+ " + formatarDinheiro(deslocamento)
             : formatarDinheiro(0);
 
-    totalElemento.textContent = formatarDinheiro(total);
-
-    const nomeParceria =
-        parceria.options[parceria.selectedIndex].text;
-
-    ultimoOrcamento =
-`ORÇAMENTO BENNY'S
-
-${linhasCopiar || "Nenhum serviço selecionado.\n"}
-Parceria: ${nomeParceria}
-Atendimento externo: ${externo.checked ? "Sim" : "Não"}
-Local: ${nomeLocal}
-
-Subtotal: ${formatarDinheiro(subtotal)}
-Desconto: ${formatarDinheiro(valorDesconto)}
-Deslocamento: ${formatarDinheiro(deslocamento)}
-
-TOTAL: ${formatarDinheiro(total)}`;
+    resultadoElemento.textContent =
+        formatarDinheiro(total);
 }
 
-async function copiarOrcamento() {
+function limpar() {
+    Object.values(camposServicos).forEach((campo) => {
+        campo.value = 0;
+    });
+
+    usarTuning.checked = false;
+    tuning.value = 0;
+
+    atendimentoExterno.checked = false;
+    local.selectedIndex = 0;
+
+    const semParceria = document.querySelector(
+        'input[name="parceria"][value="0"]'
+    );
+
+    semParceria.checked = true;
+
+    atualizarCamposVisiveis();
     calcular();
-
-    try {
-        await navigator.clipboard.writeText(ultimoOrcamento);
-        botaoCopiar.textContent = "ORÇAMENTO COPIADO";
-
-        setTimeout(() => {
-            botaoCopiar.textContent = "📋 Copiar orçamento";
-        }, 1800);
-    } catch (erro) {
-        alert("Não foi possível copiar o orçamento.");
-    }
 }
 
-externo.addEventListener("change", () => {
-    atualizarCampoLocal();
+usarTuning.addEventListener("change", () => {
+    atualizarCamposVisiveis();
     calcular();
 });
 
-parceria.addEventListener("change", calcular);
+atendimentoExterno.addEventListener("change", () => {
+    atualizarCamposVisiveis();
+    calcular();
+});
+
+tuning.addEventListener("input", calcular);
 local.addEventListener("change", calcular);
 
-Object.values(campos).forEach((campo) => {
+Object.values(camposServicos).forEach((campo) => {
     campo.addEventListener("input", calcular);
 });
 
-botaoCalcular.addEventListener("click", calcular);
-botaoCopiar.addEventListener("click", copiarOrcamento);
+document
+    .querySelectorAll('input[name="parceria"]')
+    .forEach((opcao) => {
+        opcao.addEventListener("change", calcular);
+    });
 
-atualizarCampoLocal();
+botaoCalcular.addEventListener("click", calcular);
+botaoLimpar.addEventListener("click", limpar);
+
+atualizarCamposVisiveis();
 calcular();
