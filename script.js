@@ -120,16 +120,24 @@ function calcular() {
         subtotalServicos *
         (percentualDesconto / 100);
 
-    let tuningFinal = 0;
+let tuningFinal = 0;
 
-    if (usarTuning.checked) {
-        const valorOriginalTuning =
-            Number(tuning.value) || 0;
+if (usarTuning.checked) {
+    const valorOriginalTuning =
+        Number(tuning.value) || 0;
 
-        tuningFinal =
-            valorOriginalTuning *
-            (1 + percentualTuning / 100);
-    }
+    // Primeiro adiciona 30%
+    const tuningComAcrescimo =
+        valorOriginalTuning * 1.30;
+
+    // Depois aplica o desconto da parceria
+    const descontoTuning =
+        tuningComAcrescimo *
+        (percentualDesconto / 100);
+
+    tuningFinal =
+        tuningComAcrescimo - descontoTuning;
+}
 
     let deslocamento = 0;
 
