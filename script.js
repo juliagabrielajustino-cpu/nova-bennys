@@ -1,9 +1,9 @@
 const precos = {
-    pneu: 1200,
-    chave: 1500,
-    kitBasico: 1500,
-    kitAvancado: 3500,
-    reparinho: 1500
+    pneu: 500,
+    chave: 1000,
+    kitBasico: 1000,
+    kitAvancado: 3000,
+    reparinho: 1000
 };
 
 const nomes = {
