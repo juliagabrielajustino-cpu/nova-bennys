@@ -1,10 +1,9 @@
 :root {
     --vermelho: #d50000;
-    --vermelho-claro: #ff2b2b;
+    --vermelho-claro: #ff3030;
     --preto: #080808;
-    --preto-card: #121212;
+    --card: #121212;
     --cinza: #1d1d1d;
-    --cinza-claro: #2a2a2a;
     --borda: #383838;
     --branco: #ffffff;
     --texto-secundario: #b9b9b9;
@@ -24,7 +23,6 @@ html {
 
 body {
     min-height: 100vh;
-    padding: 24px 14px;
     background: var(--preto);
     color: var(--branco);
     font-family: Arial, Helvetica, sans-serif;
@@ -36,8 +34,103 @@ select {
     font: inherit;
 }
 
+.escondido {
+    display: none !important;
+}
+
+
+/* TELA DE ENTRADA */
+
+.tela-entrada {
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 410px;
+    padding: 30px;
+    background: var(--card);
+    border: 1px solid #303030;
+    border-top: 4px solid var(--vermelho);
+    border-radius: 18px;
+    box-shadow:
+        0 20px 55px rgba(0, 0, 0, 0.7),
+        0 0 25px rgba(213, 0, 0, 0.15);
+}
+
+.logo-login {
+    display: block;
+    width: 180px;
+    max-width: 75%;
+    margin: 0 auto 18px;
+}
+
+.login-card h1 {
+    margin-bottom: 8px;
+    color: var(--vermelho-claro);
+    text-align: center;
+}
+
+.login-card > p {
+    margin-bottom: 24px;
+    color: var(--texto-secundario);
+    text-align: center;
+}
+
+.login-card label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+#nomeMecanico {
+    width: 100%;
+    padding: 13px;
+    background: var(--cinza);
+    border: 1px solid #484848;
+    border-radius: 9px;
+    color: var(--branco);
+    outline: none;
+}
+
+#nomeMecanico:focus {
+    border-color: var(--vermelho);
+    box-shadow: 0 0 0 2px rgba(213, 0, 0, 0.14);
+}
+
+#entrar {
+    width: 100%;
+    min-height: 49px;
+    margin-top: 16px;
+    border: none;
+    border-radius: 9px;
+    background: var(--vermelho);
+    color: var(--branco);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#entrar:hover {
+    background: var(--vermelho-claro);
+}
+
+.erro-login {
+    min-height: 18px;
+    margin-top: 12px;
+    color: #ff7070 !important;
+    font-size: 13px;
+}
+
+
+/* CALCULADORA */
+
 .container {
     width: 100%;
+    padding: 24px 14px;
     display: flex;
     justify-content: center;
 }
@@ -46,7 +139,7 @@ select {
     width: 100%;
     max-width: 520px;
     padding: 26px;
-    background: var(--preto-card);
+    background: var(--card);
     border: 1px solid #2c2c2c;
     border-top: 4px solid var(--vermelho);
     border-radius: 18px;
@@ -66,22 +159,63 @@ select {
     display: block;
     width: 175px;
     max-width: 72%;
-    height: auto;
     margin: 0 auto 14px;
-    object-fit: contain;
-    filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.22));
 }
 
 .cabecalho h1 {
     color: var(--vermelho-claro);
     font-size: 30px;
-    letter-spacing: 1px;
     margin-bottom: 6px;
 }
 
-.cabecalho p {
+.cabecalho > p {
     color: var(--texto-secundario);
     font-size: 14px;
+}
+
+.dados-mecanico {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.dados-mecanico div {
+    padding: 11px;
+    background: var(--cinza);
+    border: 1px solid var(--borda);
+    border-radius: 9px;
+}
+
+.dados-mecanico span,
+.dados-mecanico strong {
+    display: block;
+}
+
+.dados-mecanico span {
+    margin-bottom: 4px;
+    color: var(--texto-secundario);
+    font-size: 12px;
+}
+
+.dados-mecanico strong {
+    color: var(--branco);
+    font-size: 13px;
+}
+
+.botao-sair {
+    margin-top: 12px;
+    padding: 9px 15px;
+    border: 1px solid #4a4a4a;
+    border-radius: 8px;
+    background: transparent;
+    color: #c9c9c9;
+    cursor: pointer;
+}
+
+.botao-sair:hover {
+    border-color: var(--vermelho);
+    color: var(--branco);
 }
 
 .secao {
@@ -90,11 +224,11 @@ select {
 
 .secao h2 {
     margin-bottom: 13px;
-    color: var(--branco);
     font-size: 18px;
 }
 
-.lista-servicos {
+.lista-servicos,
+.parcerias {
     display: grid;
     gap: 10px;
 }
@@ -108,26 +242,12 @@ select {
     background: var(--cinza);
     border: 1px solid var(--borda);
     border-radius: 10px;
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease;
-}
-
-.servico:hover,
-.servico:focus-within {
-    background: #222222;
-    border-color: #5c1a1a;
 }
 
 .servico > div {
     display: flex;
     flex-direction: column;
     gap: 4px;
-}
-
-.servico strong {
-    color: var(--branco);
-    font-size: 15px;
 }
 
 .servico span {
@@ -137,42 +257,54 @@ select {
 
 .servico input {
     width: 88px;
-    min-width: 88px;
     padding: 10px 8px;
     background: #0b0b0b;
     border: 1px solid #4c4c4c;
     border-radius: 8px;
     color: var(--branco);
-    font-size: 16px;
     text-align: center;
     outline: none;
 }
 
-.servico input:focus {
+.servico input:focus,
+#tuning:focus,
+#local:focus {
     border-color: var(--vermelho);
-    box-shadow: 0 0 0 2px rgba(213, 0, 0, 0.14);
 }
 
-.opcao-checkbox {
+.opcao-checkbox,
+.opcao-parceria {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 11px;
     padding: 13px 14px;
     background: var(--cinza);
     border: 1px solid var(--borda);
     border-radius: 10px;
     cursor: pointer;
-    font-weight: bold;
 }
 
-.opcao-checkbox:hover {
-    border-color: #5c1a1a;
-}
-
-.opcao-checkbox input {
+.opcao-checkbox input,
+.opcao-parceria input {
     width: 18px;
     height: 18px;
     accent-color: var(--vermelho);
+}
+
+.opcao-parceria:has(input:checked) {
+    background: #281111;
+    border-color: var(--vermelho);
+    box-shadow: inset 4px 0 0 var(--vermelho);
+}
+
+.opcao-parceria > span {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.opcao-parceria small {
+    color: var(--texto-secundario);
 }
 
 .campo-escondido {
@@ -191,8 +323,6 @@ select {
 .campo-escondido > label {
     display: block;
     margin-bottom: 8px;
-    color: var(--branco);
-    font-size: 14px;
     font-weight: bold;
 }
 
@@ -207,12 +337,6 @@ select {
     outline: none;
 }
 
-#tuning:focus,
-#local:focus {
-    border-color: var(--vermelho);
-    box-shadow: 0 0 0 2px rgba(213, 0, 0, 0.13);
-}
-
 .tuning-final {
     display: flex;
     justify-content: space-between;
@@ -220,62 +344,17 @@ select {
     margin-top: 13px;
     padding-top: 13px;
     border-top: 1px solid #303030;
-    color: var(--texto-secundario);
 }
 
 .tuning-final strong {
     color: var(--amarelo);
 }
 
-.parcerias {
-    display: grid;
-    gap: 9px;
-}
-
-.opcao-parceria {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    padding: 12px 13px;
-    background: var(--cinza);
-    border: 1px solid var(--borda);
-    border-radius: 10px;
-    cursor: pointer;
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease;
-}
-
-.opcao-parceria:hover {
-    border-color: #6a1b1b;
-}
-
-.opcao-parceria:has(input:checked) {
-    background: #281111;
-    border-color: var(--vermelho);
-    box-shadow: inset 4px 0 0 var(--vermelho);
-}
-
-.opcao-parceria input {
-    width: 18px;
-    height: 18px;
-    accent-color: var(--vermelho);
-}
-
-.opcao-parceria > span {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.opcao-parceria strong {
-    color: var(--branco);
-    font-size: 14px;
-}
-
-.opcao-parceria small {
-    color: var(--texto-secundario);
-    font-size: 12px;
+.explicacao {
+    display: block;
+    margin-top: 10px;
+    color: #929292;
+    line-height: 1.4;
 }
 
 .botoes {
@@ -290,13 +369,8 @@ select {
     border: none;
     border-radius: 10px;
     color: var(--branco);
-    font-size: 15px;
     font-weight: bold;
     cursor: pointer;
-    transition:
-        transform 0.2s ease,
-        background 0.2s ease,
-        box-shadow 0.2s ease;
 }
 
 #calcular {
@@ -305,8 +379,6 @@ select {
 
 #calcular:hover {
     background: var(--vermelho-claro);
-    transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(213, 0, 0, 0.22);
 }
 
 #limpar {
@@ -315,7 +387,6 @@ select {
 
 #limpar:hover {
     background: #525252;
-    transform: translateY(-1px);
 }
 
 .orcamento {
@@ -329,36 +400,13 @@ select {
 .orcamento h2 {
     margin-bottom: 15px;
     color: var(--vermelho-claro);
-    font-size: 18px;
 }
 
 #resumoServicos {
     margin-bottom: 16px;
 }
 
-.item-resumo {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 8px 0;
-    border-bottom: 1px solid #242424;
-    color: #d5d5d5;
-    font-size: 14px;
-}
-
-.item-resumo:last-child {
-    border-bottom: none;
-}
-
-.item-resumo strong {
-    color: var(--branco);
-}
-
-.vazio {
-    color: #8f8f8f;
-    font-size: 14px;
-}
-
+.item-resumo,
 .linha-resumo {
     display: flex;
     justify-content: space-between;
@@ -368,8 +416,18 @@ select {
     font-size: 14px;
 }
 
+.item-resumo {
+    border-bottom: 1px solid #242424;
+}
+
+.item-resumo strong,
 .linha-resumo strong {
     color: var(--branco);
+}
+
+.vazio {
+    color: #8f8f8f;
+    font-size: 14px;
 }
 
 #valorDesconto {
@@ -388,7 +446,6 @@ select {
     margin-top: 10px;
     padding-top: 16px;
     border-top: 1px solid #3b3b3b;
-    color: var(--branco);
     font-size: 21px;
     font-weight: bold;
 }
@@ -396,45 +453,27 @@ select {
 #resultado {
     color: var(--verde);
     font-size: 24px;
-    text-shadow: 0 0 10px rgba(57, 242, 141, 0.24);
 }
 
 @media (max-width: 560px) {
-    body {
+    .container {
         padding: 10px 8px;
     }
 
-    .card {
+    .card,
+    .login-card {
         padding: 19px 14px;
-        border-radius: 14px;
     }
 
-    .logo {
-        width: 145px;
-    }
-
-    .cabecalho h1 {
-        font-size: 25px;
-    }
-
-    .servico {
-        padding: 12px;
-    }
-
-    .servico input {
-        width: 76px;
-        min-width: 76px;
+    .dados-mecanico {
+        grid-template-columns: 1fr;
     }
 
     .botoes {
         grid-template-columns: 1fr;
     }
 
-    .linha-resumo.total {
-        font-size: 18px;
-    }
-
-    #resultado {
-        font-size: 21px;
+    .servico input {
+        width: 76px;
     }
 }
