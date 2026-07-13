@@ -14,12 +14,16 @@ const nomes = {
     reparinho: "Reparinho"
 };
 
+/* TELA DE ENTRADA */
+
 const telaEntrada = document.getElementById("telaEntrada");
 const sistema = document.getElementById("sistema");
 const nomeMecanico = document.getElementById("nomeMecanico");
 const mecanicoExibido = document.getElementById("mecanicoExibido");
 const dataHora = document.getElementById("dataHora");
 const erroLogin = document.getElementById("erroLogin");
+
+/* SERVIÇOS */
 
 const camposServicos = {
     pneu: document.getElementById("pneu"),
@@ -29,16 +33,22 @@ const camposServicos = {
     reparinho: document.getElementById("reparinho")
 };
 
+/* TUNING */
+
 const usarTuning = document.getElementById("usarTuning");
 const campoTuning = document.getElementById("campoTuning");
 const tuning = document.getElementById("tuning");
 const valorTuningFinal = document.getElementById("valorTuningFinal");
+
+/* DESLOCAMENTO */
 
 const atendimentoExterno =
     document.getElementById("atendimentoExterno");
 
 const campoLocal = document.getElementById("campoLocal");
 const local = document.getElementById("local");
+
+/* RESULTADO */
 
 const resumoServicos =
     document.getElementById("resumoServicos");
@@ -83,6 +93,10 @@ function obterParceria() {
 }
 
 function atualizarDataHora() {
+    if (!dataHora) {
+        return;
+    }
+
     const agora = new Date();
 
     dataHora.textContent = agora.toLocaleString("pt-BR", {
@@ -95,9 +109,7 @@ function entrarNoSistema() {
     const nome = nomeMecanico.value.trim();
 
     if (nome.length < 2) {
-        erroLogin.textContent =
-            "Digite um nome válido.";
-
+        erroLogin.textContent = "Digite um nome válido.";
         nomeMecanico.focus();
         return;
     }
@@ -135,6 +147,8 @@ function calcular() {
     let subtotalServicos = 0;
     let itensResumo = "";
 
+    /* SOMA DOS SERVIÇOS */
+
     for (const servico in camposServicos) {
         const quantidade = obterQuantidade(
             camposServicos[servico]
@@ -160,23 +174,34 @@ function calcular() {
         }
     }
 
+    /* DESCONTO SOMENTE NOS SERVIÇOS */
+
     const parceriaSelecionada = obterParceria();
 
     const percentualDesconto =
-        Number(parceriaSelecionada.value);
+        parceriaSelecionada
+            ? Number(parceriaSelecionada.value)
+            : 0;
 
     const descontoServicos =
         subtotalServicos *
         (percentualDesconto / 100);
 
- let tuningFinal = 0;
+    const servicosComDesconto =
+        subtotalServicos - descontoServicos;
 
-if (usarTuning.checked) {
-    const valorOriginal =
-        Math.max(0, Number(tuning.value) || 0);
+    /* TUNING SEM DESCONTO */
 
-    tuningFinal = valorOriginal * 1.30;
-}
+    let tuningFinal = 0;
+
+    if (usarTuning.checked) {
+        const valorOriginalTuning =
+            Math.max(0, Number(tuning.value) || 0);
+
+        tuningFinal = valorOriginalTuning * 1.30;
+    }
+
+    /* DESLOCAMENTO */
 
     let deslocamento = 0;
 
@@ -185,11 +210,14 @@ if (usarTuning.checked) {
             Math.max(0, Number(local.value) || 0);
     }
 
+    /* TOTAL */
+
     const total =
-        subtotalServicos -
-        descontoServicos +
+        servicosComDesconto +
         tuningFinal +
         deslocamento;
+
+    /* MOSTRAR SERVIÇOS */
 
     resumoServicos.innerHTML =
         itensResumo || `
@@ -232,13 +260,19 @@ function limpar() {
     atendimentoExterno.checked = false;
     local.selectedIndex = 0;
 
-    document.querySelector(
+    const semParceria = document.querySelector(
         'input[name="parceria"][value="0"]'
-    ).checked = true;
+    );
+
+    if (semParceria) {
+        semParceria.checked = true;
+    }
 
     atualizarCamposVisiveis();
     calcular();
 }
+
+/* BOTÕES */
 
 document
     .getElementById("entrar")
@@ -256,11 +290,15 @@ document
     .getElementById("limpar")
     .addEventListener("click", limpar);
 
+/* ENTER NO LOGIN */
+
 nomeMecanico.addEventListener("keydown", (evento) => {
     if (evento.key === "Enter") {
         entrarNoSistema();
     }
 });
+
+/* ATUALIZAÇÕES AUTOMÁTICAS */
 
 usarTuning.addEventListener("change", () => {
     atualizarCamposVisiveis();
