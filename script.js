@@ -169,22 +169,14 @@ function calcular() {
         subtotalServicos *
         (percentualDesconto / 100);
 
-    let tuningFinal = 0;
+ let tuningFinal = 0;
 
-    if (usarTuning.checked) {
-        const valorOriginal =
-            Math.max(0, Number(tuning.value) || 0);
+if (usarTuning.checked) {
+    const valorOriginal =
+        Math.max(0, Number(tuning.value) || 0);
 
-        const tuningComTrinta =
-            valorOriginal * 1.30;
-
-        const descontoTuning =
-            tuningComTrinta *
-            (percentualDesconto / 100);
-
-        tuningFinal =
-            tuningComTrinta - descontoTuning;
-    }
+    tuningFinal = valorOriginal * 1.30;
+}
 
     let deslocamento = 0;
 
