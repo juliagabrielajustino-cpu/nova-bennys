@@ -14,6 +14,13 @@ const nomes = {
     reparinho: "Reparinho"
 };
 
+const telaEntrada = document.getElementById("telaEntrada");
+const sistema = document.getElementById("sistema");
+const nomeMecanico = document.getElementById("nomeMecanico");
+const mecanicoExibido = document.getElementById("mecanicoExibido");
+const dataHora = document.getElementById("dataHora");
+const erroLogin = document.getElementById("erroLogin");
+
 const camposServicos = {
     pneu: document.getElementById("pneu"),
     chave: document.getElementById("chave"),
@@ -27,19 +34,30 @@ const campoTuning = document.getElementById("campoTuning");
 const tuning = document.getElementById("tuning");
 const valorTuningFinal = document.getElementById("valorTuningFinal");
 
-const atendimentoExterno = document.getElementById("atendimentoExterno");
+const atendimentoExterno =
+    document.getElementById("atendimentoExterno");
+
 const campoLocal = document.getElementById("campoLocal");
 const local = document.getElementById("local");
 
-const botaoCalcular = document.getElementById("calcular");
-const botaoLimpar = document.getElementById("limpar");
+const resumoServicos =
+    document.getElementById("resumoServicos");
 
-const resumoServicos = document.getElementById("resumoServicos");
-const subtotalServicosElemento = document.getElementById("subtotalServicos");
-const valorDescontoElemento = document.getElementById("valorDesconto");
-const valorTuningResumoElemento = document.getElementById("valorTuningResumo");
-const valorDeslocamentoElemento = document.getElementById("valorDeslocamento");
-const resultadoElemento = document.getElementById("resultado");
+const subtotalServicosElemento =
+    document.getElementById("subtotalServicos");
+
+const valorDescontoElemento =
+    document.getElementById("valorDesconto");
+
+const valorTuningResumoElemento =
+    document.getElementById("valorTuningResumo");
+
+const valorDeslocamentoElemento =
+    document.getElementById("valorDeslocamento");
+
+const resultadoElemento =
+    document.getElementById("resultado");
+
 
 function formatarDinheiro(valor) {
     return valor.toLocaleString("pt-BR", {
@@ -58,10 +76,47 @@ function obterQuantidade(campo) {
     return Math.floor(valor);
 }
 
-function obterParceriaSelecionada() {
+function obterParceria() {
     return document.querySelector(
         'input[name="parceria"]:checked'
     );
+}
+
+function atualizarDataHora() {
+    const agora = new Date();
+
+    dataHora.textContent = agora.toLocaleString("pt-BR", {
+        dateStyle: "short",
+        timeStyle: "short"
+    });
+}
+
+function entrarNoSistema() {
+    const nome = nomeMecanico.value.trim();
+
+    if (nome.length < 2) {
+        erroLogin.textContent =
+            "Digite um nome válido.";
+
+        nomeMecanico.focus();
+        return;
+    }
+
+    erroLogin.textContent = "";
+    mecanicoExibido.textContent = nome;
+
+    telaEntrada.classList.add("escondido");
+    sistema.classList.remove("escondido");
+
+    atualizarDataHora();
+}
+
+function sairDoSistema() {
+    sistema.classList.add("escondido");
+    telaEntrada.classList.remove("escondido");
+
+    nomeMecanico.value = "";
+    nomeMecanico.focus();
 }
 
 function atualizarCamposVisiveis() {
@@ -105,69 +160,58 @@ function calcular() {
         }
     }
 
-    const parceriaSelecionada =
-        obterParceriaSelecionada();
+    const parceriaSelecionada = obterParceria();
 
-    const percentualDesconto = Number(
-        parceriaSelecionada.value
-    );
+    const percentualDesconto =
+        Number(parceriaSelecionada.value);
 
-    const percentualTuning = Number(
-        parceriaSelecionada.dataset.tuning
-    );
-
-    const valorDesconto =
+    const descontoServicos =
         subtotalServicos *
         (percentualDesconto / 100);
 
-let tuningFinal = 0;
+    let tuningFinal = 0;
 
-if (usarTuning.checked) {
-    const valorOriginalTuning =
-        Number(tuning.value) || 0;
+    if (usarTuning.checked) {
+        const valorOriginal =
+            Math.max(0, Number(tuning.value) || 0);
 
-    // Primeiro adiciona 30%
-    const tuningComAcrescimo =
-        valorOriginalTuning * 1.30;
+        const tuningComTrinta =
+            valorOriginal * 1.30;
 
-    // Depois aplica o desconto da parceria
-    const descontoTuning =
-        tuningComAcrescimo *
-        (percentualDesconto / 100);
+        const descontoTuning =
+            tuningComTrinta *
+            (percentualDesconto / 100);
 
-    tuningFinal =
-        tuningComAcrescimo - descontoTuning;
-}
+        tuningFinal =
+            tuningComTrinta - descontoTuning;
+    }
 
     let deslocamento = 0;
 
     if (atendimentoExterno.checked) {
         deslocamento =
-            Number(local.value) || 0;
+            Math.max(0, Number(local.value) || 0);
     }
 
     const total =
         subtotalServicos -
-        valorDesconto +
+        descontoServicos +
         tuningFinal +
         deslocamento;
 
-    if (itensResumo) {
-        resumoServicos.innerHTML = itensResumo;
-    } else {
-        resumoServicos.innerHTML = `
+    resumoServicos.innerHTML =
+        itensResumo || `
             <p class="vazio">
                 Nenhum serviço selecionado.
             </p>
         `;
-    }
 
     subtotalServicosElemento.textContent =
         formatarDinheiro(subtotalServicos);
 
     valorDescontoElemento.textContent =
-        valorDesconto > 0
-            ? "- " + formatarDinheiro(valorDesconto)
+        descontoServicos > 0
+            ? "- " + formatarDinheiro(descontoServicos)
             : formatarDinheiro(0);
 
     valorTuningFinal.textContent =
@@ -196,15 +240,35 @@ function limpar() {
     atendimentoExterno.checked = false;
     local.selectedIndex = 0;
 
-    const semParceria = document.querySelector(
+    document.querySelector(
         'input[name="parceria"][value="0"]'
-    );
-
-    semParceria.checked = true;
+    ).checked = true;
 
     atualizarCamposVisiveis();
     calcular();
 }
+
+document
+    .getElementById("entrar")
+    .addEventListener("click", entrarNoSistema);
+
+document
+    .getElementById("sair")
+    .addEventListener("click", sairDoSistema);
+
+document
+    .getElementById("calcular")
+    .addEventListener("click", calcular);
+
+document
+    .getElementById("limpar")
+    .addEventListener("click", limpar);
+
+nomeMecanico.addEventListener("keydown", (evento) => {
+    if (evento.key === "Enter") {
+        entrarNoSistema();
+    }
+});
 
 usarTuning.addEventListener("change", () => {
     atualizarCamposVisiveis();
@@ -229,8 +293,7 @@ document
         opcao.addEventListener("change", calcular);
     });
 
-botaoCalcular.addEventListener("click", calcular);
-botaoLimpar.addEventListener("click", limpar);
+setInterval(atualizarDataHora, 30000);
 
 atualizarCamposVisiveis();
 calcular();
