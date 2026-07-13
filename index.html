@@ -15,7 +15,54 @@
 
 <body>
 
-    <main class="container">
+    <!-- TELA DE ENTRADA -->
+
+    <section id="telaEntrada" class="tela-entrada">
+
+        <div class="login-card">
+
+            <img
+                src="bennys.png"
+                alt="Logo Benny's"
+                class="logo-login"
+            >
+
+            <h1>Benny's Motor Works</h1>
+
+            <p>Digite seu nome para acessar o sistema.</p>
+
+            <label for="nomeMecanico">
+                Nome do mecânico
+            </label>
+
+            <input
+                type="text"
+                id="nomeMecanico"
+                placeholder="Digite seu nome"
+                maxlength="30"
+                autocomplete="off"
+            >
+
+            <button
+                type="button"
+                id="entrar"
+            >
+                Entrar
+            </button>
+
+            <p id="erroLogin" class="erro-login"></p>
+
+        </div>
+
+    </section>
+
+
+    <!-- CALCULADORA -->
+
+    <main
+        id="sistema"
+        class="container escondido"
+    >
 
         <section class="card">
 
@@ -29,11 +76,34 @@
 
                 <h1>Calculadora Benny's</h1>
 
-                <p>
-                    Sistema de orçamentos
-                </p>
+                <p>Sistema de orçamentos</p>
+
+                <div class="dados-mecanico">
+
+                    <div>
+                        <span>Mecânico</span>
+                        <strong id="mecanicoExibido">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Data e hora</span>
+                        <strong id="dataHora">—</strong>
+                    </div>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="sair"
+                    class="botao-sair"
+                >
+                    Trocar mecânico
+                </button>
 
             </header>
+
+
+            <!-- SERVIÇOS -->
 
             <section class="secao">
 
@@ -45,7 +115,7 @@
 
                         <div>
                             <strong>Pneu</strong>
-                            <span>R$ 1.200</span>
+                            <span>R$ 500</span>
                         </div>
 
                         <input
@@ -62,7 +132,7 @@
 
                         <div>
                             <strong>Chave Inglesa</strong>
-                            <span>R$ 1.500</span>
+                            <span>R$ 1.000</span>
                         </div>
 
                         <input
@@ -79,7 +149,7 @@
 
                         <div>
                             <strong>Kit Básico</strong>
-                            <span>R$ 1.500</span>
+                            <span>R$ 1.000</span>
                         </div>
 
                         <input
@@ -96,7 +166,7 @@
 
                         <div>
                             <strong>Kit Avançado</strong>
-                            <span>R$ 3.500</span>
+                            <span>R$ 3.000</span>
                         </div>
 
                         <input
@@ -113,7 +183,7 @@
 
                         <div>
                             <strong>Reparinho</strong>
-                            <span>R$ 1.500</span>
+                            <span>R$ 1.000</span>
                         </div>
 
                         <input
@@ -129,6 +199,9 @@
                 </div>
 
             </section>
+
+
+            <!-- TUNING -->
 
             <section class="secao">
 
@@ -170,9 +243,16 @@
 
                     </div>
 
+                    <small class="explicacao">
+                        O sistema adiciona 30% e depois aplica o desconto da parceria.
+                    </small>
+
                 </div>
 
             </section>
+
+
+            <!-- PARCERIAS -->
 
             <section class="secao">
 
@@ -186,18 +266,12 @@
                             type="radio"
                             name="parceria"
                             value="0"
-                            data-tuning="30"
                             checked
                         >
 
                         <span>
-
                             <strong>Sem parceria</strong>
-
-                            <small>
-                                Serviços normais · Tuning +30%
-                            </small>
-
+                            <small>Sem desconto</small>
                         </span>
 
                     </label>
@@ -208,17 +282,11 @@
                             type="radio"
                             name="parceria"
                             value="10"
-                            data-tuning="20"
                         >
 
                         <span>
-
                             <strong>Parceria 1</strong>
-
-                            <small>
-                                Serviços -10% · Tuning +20%
-                            </small>
-
+                            <small>10% de desconto geral</small>
                         </span>
 
                     </label>
@@ -229,17 +297,11 @@
                             type="radio"
                             name="parceria"
                             value="20"
-                            data-tuning="10"
                         >
 
                         <span>
-
                             <strong>Parceria 2</strong>
-
-                            <small>
-                                Serviços -20% · Tuning +10%
-                            </small>
-
+                            <small>20% de desconto geral</small>
                         </span>
 
                     </label>
@@ -250,17 +312,11 @@
                             type="radio"
                             name="parceria"
                             value="15"
-                            data-tuning="15"
                         >
 
                         <span>
-
                             <strong>Polícia</strong>
-
-                            <small>
-                                Serviços -15% · Tuning +15%
-                            </small>
-
+                            <small>15% de desconto geral</small>
                         </span>
 
                     </label>
@@ -271,17 +327,11 @@
                             type="radio"
                             name="parceria"
                             value="15"
-                            data-tuning="15"
                         >
 
                         <span>
-
                             <strong>HP</strong>
-
-                            <small>
-                                Serviços -15% · Tuning +15%
-                            </small>
-
+                            <small>15% de desconto geral</small>
                         </span>
 
                     </label>
@@ -289,6 +339,9 @@
                 </div>
 
             </section>
+
+
+            <!-- DESLOCAMENTO -->
 
             <section class="secao">
 
@@ -314,16 +367,16 @@
 
                     <select id="local">
 
+                        <option value="0">
+                            Sul — sem custo
+                        </option>
+
                         <option value="500">
-                            Sul (+R$ 500)
+                            Sand (+R$ 500)
                         </option>
 
-                        <option value="1000">
-                            Sand (+R$ 1.000)
-                        </option>
-
-                        <option value="1500">
-                            Paleto Bay (+R$ 1.500)
+                        <option value="500">
+                            Paleto Bay (+R$ 500)
                         </option>
 
                     </select>
@@ -331,6 +384,9 @@
                 </div>
 
             </section>
+
+
+            <!-- BOTÕES -->
 
             <div class="botoes">
 
@@ -349,6 +405,9 @@
                 </button>
 
             </div>
+
+
+            <!-- RESULTADO -->
 
             <section class="orcamento">
 
@@ -374,7 +433,7 @@
 
                 <div class="linha-resumo">
 
-                    <span>Desconto</span>
+                    <span>Desconto nos serviços</span>
 
                     <strong id="valorDesconto">
                         R$ 0,00
