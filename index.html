@@ -8,42 +8,476 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Login | Sistema Benny's</title>
+    <title>Calculadora Benny's</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <main class="login-container">
+    <!-- TELA DE ENTRADA -->
 
-        <section class="login-card">
+    <section id="telaEntrada" class="tela-entrada">
+
+        <div class="login-card">
 
             <img
                 src="bennys.png"
                 alt="Logo Benny's"
-                class="logo"
+                class="logo-login"
             >
-                   <button
-                    type="submit"
-                    id="botaoEntrar"
+
+            <h1>Benny's Motor Works</h1>
+
+            <p>Digite seu nome para acessar o sistema.</p>
+
+            <label for="nomeMecanico">
+                Nome do mecânico
+            </label>
+
+            <input
+                type="text"
+                id="nomeMecanico"
+                placeholder="Digite seu nome"
+                maxlength="30"
+                autocomplete="off"
+            >
+
+            <button
+                type="button"
+                id="entrar"
+            >
+                Entrar
+            </button>
+
+            <p id="erroLogin" class="erro-login"></p>
+
+        </div>
+
+    </section>
+
+
+    <!-- CALCULADORA -->
+
+    <main
+        id="sistema"
+        class="container escondido"
+    >
+
+        <section class="card">
+
+            <header class="cabecalho">
+
+                <img
+                    src="bennys.png"
+                    alt="Logo Benny's"
+                    class="logo"
                 >
-                    Entrar
+
+                <h1>Calculadora Benny's</h1>
+
+                <p>Sistema de orçamentos</p>
+
+                <div class="dados-mecanico">
+
+                    <div>
+                        <span>Mecânico</span>
+                        <strong id="mecanicoExibido">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Data e hora</span>
+                        <strong id="dataHora">—</strong>
+                    </div>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="sair"
+                    class="botao-sair"
+                >
+                    Trocar mecânico
                 </button>
 
-            </form>
+            </header>
 
-            <p
-                id="mensagem"
-                class="mensagem"
-                aria-live="polite"
-            ></p>
+
+            <!-- SERVIÇOS -->
+
+            <section class="secao">
+
+                <h2>Serviços</h2>
+
+                <div class="lista-servicos">
+
+                    <div class="servico">
+
+                        <div>
+                            <strong>Pneu</strong>
+                            <span>R$ 500</span>
+                        </div>
+
+                        <input
+                            type="number"
+                            id="pneu"
+                            min="0"
+                            value="0"
+                            inputmode="numeric"
+                        >
+
+                    </div>
+
+                    <div class="servico">
+
+                        <div>
+                            <strong>Chave Inglesa</strong>
+                            <span>R$ 1.000</span>
+                        </div>
+
+                        <input
+                            type="number"
+                            id="chave"
+                            min="0"
+                            value="0"
+                            inputmode="numeric"
+                        >
+
+                    </div>
+
+                    <div class="servico">
+
+                        <div>
+                            <strong>Kit Básico</strong>
+                            <span>R$ 1.000</span>
+                        </div>
+
+                        <input
+                            type="number"
+                            id="kitBasico"
+                            min="0"
+                            value="0"
+                            inputmode="numeric"
+                        >
+
+                    </div>
+
+                    <div class="servico">
+
+                        <div>
+                            <strong>Kit Avançado</strong>
+                            <span>R$ 3.000</span>
+                        </div>
+
+                        <input
+                            type="number"
+                            id="kitAvancado"
+                            min="0"
+                            value="0"
+                            inputmode="numeric"
+                        >
+
+                    </div>
+
+                    <div class="servico">
+
+                        <div>
+                            <strong>Reparinho</strong>
+                            <span>R$ 1.000</span>
+                        </div>
+
+                        <input
+                            type="number"
+                            id="reparinho"
+                            min="0"
+                            value="0"
+                            inputmode="numeric"
+                        >
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- TUNING -->
+
+            <section class="secao">
+
+                <label class="opcao-checkbox">
+
+                    <input
+                        type="checkbox"
+                        id="usarTuning"
+                    >
+
+                    <span>Adicionar tuning</span>
+
+                </label>
+
+                <div
+                    id="campoTuning"
+                    class="campo-escondido"
+                >
+
+                    <label for="tuning">
+                        Valor original do tuning
+                    </label>
+
+                    <input
+                        type="number"
+                        id="tuning"
+                        min="0"
+                        value="0"
+                        inputmode="decimal"
+                    >
+
+                    <div class="tuning-final">
+
+                        <span>Valor final do tuning</span>
+
+                        <strong id="valorTuningFinal">
+                            R$ 0,00
+                        </strong>
+
+                    </div>
+
+                    <small class="explicacao">
+                        O sistema adiciona 30% e depois aplica o desconto da parceria.
+                    </small>
+
+                </div>
+
+            </section>
+
+
+            <!-- PARCERIAS -->
+
+            <section class="secao">
+
+                <h2>Parceria</h2>
+
+                <div class="parcerias">
+
+                    <label class="opcao-parceria">
+
+                        <input
+                            type="radio"
+                            name="parceria"
+                            value="0"
+                            checked
+                        >
+
+                        <span>
+                            <strong>Sem parceria</strong>
+                            <small>Sem desconto</small>
+                        </span>
+
+                    </label>
+
+                    <label class="opcao-parceria">
+
+                        <input
+                            type="radio"
+                            name="parceria"
+                            value="10"
+                        >
+
+                        <span>
+                            <strong>Parceria 1</strong>
+                            <small>10% de desconto geral</small>
+                        </span>
+
+                    </label>
+
+                    <label class="opcao-parceria">
+
+                        <input
+                            type="radio"
+                            name="parceria"
+                            value="20"
+                        >
+
+                        <span>
+                            <strong>Parceria 2</strong>
+                            <small>20% de desconto geral</small>
+                        </span>
+
+                    </label>
+
+                    <label class="opcao-parceria">
+
+                        <input
+                            type="radio"
+                            name="parceria"
+                            value="15"
+                        >
+
+                        <span>
+                            <strong>Polícia</strong>
+                            <small>15% de desconto geral</small>
+                        </span>
+
+                    </label>
+
+                    <label class="opcao-parceria">
+
+                        <input
+                            type="radio"
+                            name="parceria"
+                            value="15"
+                        >
+
+                        <span>
+                            <strong>HP</strong>
+                            <small>15% de desconto geral</small>
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </section>
+
+
+            <!-- DESLOCAMENTO -->
+
+            <section class="secao">
+
+                <label class="opcao-checkbox">
+
+                    <input
+                        type="checkbox"
+                        id="atendimentoExterno"
+                    >
+
+                    <span>Atendimento externo</span>
+
+                </label>
+
+                <div
+                    id="campoLocal"
+                    class="campo-escondido"
+                >
+
+                    <label for="local">
+                        Local do atendimento
+                    </label>
+
+                    <select id="local">
+
+                        <option value="0">
+                            Sul — sem custo
+                        </option>
+
+                        <option value="500">
+                            Sand (+R$ 500)
+                        </option>
+
+                        <option value="500">
+                            Paleto Bay (+R$ 500)
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </section>
+
+
+            <!-- BOTÕES -->
+
+            <div class="botoes">
+
+                <button
+                    type="button"
+                    id="calcular"
+                >
+                    Gerar orçamento
+                </button>
+
+                <button
+                    type="button"
+                    id="limpar"
+                >
+                    Limpar
+                </button>
+
+            </div>
+
+
+            <!-- RESULTADO -->
+
+            <section class="orcamento">
+
+                <h2>Orçamento</h2>
+
+                <div id="resumoServicos">
+
+                    <p class="vazio">
+                        Nenhum serviço selecionado.
+                    </p>
+
+                </div>
+
+                <div class="linha-resumo">
+
+                    <span>Subtotal dos serviços</span>
+
+                    <strong id="subtotalServicos">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+                <div class="linha-resumo">
+
+                    <span>Desconto nos serviços</span>
+
+                    <strong id="valorDesconto">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+                <div class="linha-resumo">
+
+                    <span>Tuning</span>
+
+                    <strong id="valorTuningResumo">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+                <div class="linha-resumo">
+
+                    <span>Deslocamento</span>
+
+                    <strong id="valorDeslocamento">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+                <div class="linha-resumo total">
+
+                    <span>Total</span>
+
+                    <strong id="resultado">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+            </section>
 
         </section>
 
     </main>
 
-    <script type="module" src="auth.js"></script>
+    <script src="script.js"></script>
 
 </body>
 </html>
