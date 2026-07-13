@@ -2,12 +2,13 @@
     --vermelho: #d50000;
     --vermelho-claro: #ff3030;
     --preto: #080808;
-    --card: #141414;
-    --campo: #202020;
-    --borda: #3b3b3b;
+    --card: #121212;
+    --cinza: #1d1d1d;
+    --borda: #383838;
     --branco: #ffffff;
-    --cinza: #b9b9b9;
-    --verde: #3be58f;
+    --texto-secundario: #b9b9b9;
+    --verde: #39f28d;
+    --amarelo: #ffd166;
 }
 
 * {
@@ -16,28 +17,35 @@
     box-sizing: border-box;
 }
 
+html {
+    min-height: 100%;
+}
+
 body {
     min-height: 100vh;
-    padding: 20px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
     background: var(--preto);
     color: var(--branco);
-
     font-family: Arial, Helvetica, sans-serif;
 }
 
 button,
-input {
+input,
+select {
     font: inherit;
 }
 
-.login-container {
-    width: 100%;
+.escondido {
+    display: none !important;
+}
+
+
+/* TELA DE ENTRADA */
+
+.tela-entrada {
+    min-height: 100vh;
+    padding: 20px;
     display: flex;
+    align-items: center;
     justify-content: center;
 }
 
@@ -45,121 +53,427 @@ input {
     width: 100%;
     max-width: 410px;
     padding: 30px;
-
     background: var(--card);
     border: 1px solid #303030;
     border-top: 4px solid var(--vermelho);
     border-radius: 18px;
-
     box-shadow:
         0 20px 55px rgba(0, 0, 0, 0.7),
         0 0 25px rgba(213, 0, 0, 0.15);
 }
 
-.logo {
+.logo-login {
     display: block;
     width: 180px;
     max-width: 75%;
-    height: auto;
-
     margin: 0 auto 18px;
 }
 
-h1 {
+.login-card h1 {
     margin-bottom: 8px;
-
     color: var(--vermelho-claro);
     text-align: center;
 }
 
 .login-card > p {
     margin-bottom: 24px;
-
-    color: var(--cinza);
+    color: var(--texto-secundario);
     text-align: center;
 }
 
-form {
-    display: grid;
-    gap: 10px;
-}
-
-label {
-    margin-top: 5px;
+.login-card label {
+    display: block;
+    margin-bottom: 8px;
     font-weight: bold;
 }
 
-input {
+#nomeMecanico {
     width: 100%;
     padding: 13px;
-
-    background: var(--campo);
-    border: 1px solid var(--borda);
+    background: var(--cinza);
+    border: 1px solid #484848;
     border-radius: 9px;
-
     color: var(--branco);
     outline: none;
 }
 
-input:focus {
+#nomeMecanico:focus {
     border-color: var(--vermelho);
-
-    box-shadow:
-        0 0 0 2px rgba(213, 0, 0, 0.14);
+    box-shadow: 0 0 0 2px rgba(213, 0, 0, 0.14);
 }
 
-button {
+#entrar {
+    width: 100%;
     min-height: 49px;
-    margin-top: 10px;
-
+    margin-top: 16px;
     border: none;
     border-radius: 9px;
-
     background: var(--vermelho);
     color: var(--branco);
-
     font-weight: bold;
     cursor: pointer;
-
-    transition: 0.2s ease;
 }
 
-button:hover {
+#entrar:hover {
     background: var(--vermelho-claro);
 }
 
-button:disabled {
-    opacity: 0.65;
-    cursor: wait;
-}
-
-.mensagem {
-    min-height: 20px;
-    margin-top: 15px !important;
-    margin-bottom: 0 !important;
-
-    text-align: center;
+.erro-login {
+    min-height: 18px;
+    margin-top: 12px;
+    color: #ff7070 !important;
     font-size: 13px;
 }
 
-.mensagem.erro {
+
+/* CALCULADORA */
+
+.container {
+    width: 100%;
+    padding: 24px 14px;
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    width: 100%;
+    max-width: 520px;
+    padding: 26px;
+    background: var(--card);
+    border: 1px solid #2c2c2c;
+    border-top: 4px solid var(--vermelho);
+    border-radius: 18px;
+    box-shadow:
+        0 18px 50px rgba(0, 0, 0, 0.68),
+        0 0 22px rgba(213, 0, 0, 0.12);
+}
+
+.cabecalho {
+    text-align: center;
+    margin-bottom: 28px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #2d2d2d;
+}
+
+.logo {
+    display: block;
+    width: 175px;
+    max-width: 72%;
+    margin: 0 auto 14px;
+}
+
+.cabecalho h1 {
+    color: var(--vermelho-claro);
+    font-size: 30px;
+    margin-bottom: 6px;
+}
+
+.cabecalho > p {
+    color: var(--texto-secundario);
+    font-size: 14px;
+}
+
+.dados-mecanico {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.dados-mecanico div {
+    padding: 11px;
+    background: var(--cinza);
+    border: 1px solid var(--borda);
+    border-radius: 9px;
+}
+
+.dados-mecanico span,
+.dados-mecanico strong {
+    display: block;
+}
+
+.dados-mecanico span {
+    margin-bottom: 4px;
+    color: var(--texto-secundario);
+    font-size: 12px;
+}
+
+.dados-mecanico strong {
+    color: var(--branco);
+    font-size: 13px;
+}
+
+.botao-sair {
+    margin-top: 12px;
+    padding: 9px 15px;
+    border: 1px solid #4a4a4a;
+    border-radius: 8px;
+    background: transparent;
+    color: #c9c9c9;
+    cursor: pointer;
+}
+
+.botao-sair:hover {
+    border-color: var(--vermelho);
+    color: var(--branco);
+}
+
+.secao {
+    margin-top: 24px;
+}
+
+.secao h2 {
+    margin-bottom: 13px;
+    font-size: 18px;
+}
+
+.lista-servicos,
+.parcerias {
+    display: grid;
+    gap: 10px;
+}
+
+.servico {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 13px 14px;
+    background: var(--cinza);
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+}
+
+.servico > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.servico span {
+    color: var(--texto-secundario);
+    font-size: 13px;
+}
+
+.servico input {
+    width: 88px;
+    padding: 10px 8px;
+    background: #0b0b0b;
+    border: 1px solid #4c4c4c;
+    border-radius: 8px;
+    color: var(--branco);
+    text-align: center;
+    outline: none;
+}
+
+.servico input:focus,
+#tuning:focus,
+#local:focus {
+    border-color: var(--vermelho);
+}
+
+.opcao-checkbox,
+.opcao-parceria {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 13px 14px;
+    background: var(--cinza);
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.opcao-checkbox input,
+.opcao-parceria input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--vermelho);
+}
+
+.opcao-parceria:has(input:checked) {
+    background: #281111;
+    border-color: var(--vermelho);
+    box-shadow: inset 4px 0 0 var(--vermelho);
+}
+
+.opcao-parceria > span {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.opcao-parceria small {
+    color: var(--texto-secundario);
+}
+
+.campo-escondido {
+    display: none;
+    margin-top: 14px;
+    padding: 14px;
+    background: #0e0e0e;
+    border: 1px solid #303030;
+    border-radius: 10px;
+}
+
+.campo-escondido.ativo {
+    display: block;
+}
+
+.campo-escondido > label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+#tuning,
+#local {
+    width: 100%;
+    padding: 12px;
+    background: var(--cinza);
+    border: 1px solid #424242;
+    border-radius: 9px;
+    color: var(--branco);
+    outline: none;
+}
+
+.tuning-final {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 13px;
+    padding-top: 13px;
+    border-top: 1px solid #303030;
+}
+
+.tuning-final strong {
+    color: var(--amarelo);
+}
+
+.explicacao {
+    display: block;
+    margin-top: 10px;
+    color: #929292;
+    line-height: 1.4;
+}
+
+.botoes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 11px;
+    margin-top: 25px;
+}
+
+.botoes button {
+    min-height: 49px;
+    border: none;
+    border-radius: 10px;
+    color: var(--branco);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#calcular {
+    background: var(--vermelho);
+}
+
+#calcular:hover {
+    background: var(--vermelho-claro);
+}
+
+#limpar {
+    background: #3a3a3a;
+}
+
+#limpar:hover {
+    background: #525252;
+}
+
+.orcamento {
+    margin-top: 24px;
+    padding: 18px;
+    background: #0b0b0b;
+    border: 1px solid #303030;
+    border-radius: 12px;
+}
+
+.orcamento h2 {
+    margin-bottom: 15px;
+    color: var(--vermelho-claro);
+}
+
+#resumoServicos {
+    margin-bottom: 16px;
+}
+
+.item-resumo,
+.linha-resumo {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 8px 0;
+    color: #c9c9c9;
+    font-size: 14px;
+}
+
+.item-resumo {
+    border-bottom: 1px solid #242424;
+}
+
+.item-resumo strong,
+.linha-resumo strong {
+    color: var(--branco);
+}
+
+.vazio {
+    color: #8f8f8f;
+    font-size: 14px;
+}
+
+#valorDesconto {
     color: #ff7070;
 }
 
-.mensagem.sucesso {
-    color: var(--verde);
+#valorTuningResumo {
+    color: var(--amarelo);
 }
 
-@media (max-width: 480px) {
-    body {
-        padding: 10px;
+#valorDeslocamento {
+    color: #9ed0ff;
+}
+
+.linha-resumo.total {
+    margin-top: 10px;
+    padding-top: 16px;
+    border-top: 1px solid #3b3b3b;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+#resultado {
+    color: var(--verde);
+    font-size: 24px;
+}
+
+@media (max-width: 560px) {
+    .container {
+        padding: 10px 8px;
     }
 
+    .card,
     .login-card {
-        padding: 22px 16px;
+        padding: 19px 14px;
     }
 
-    .logo {
-        width: 145px;
+    .dados-mecanico {
+        grid-template-columns: 1fr;
+    }
+
+    .botoes {
+        grid-template-columns: 1fr;
+    }
+
+    .servico input {
+        width: 76px;
     }
 }
